@@ -10,6 +10,7 @@ import {
   ScrollView
 } from "react-native";
 import { Fontisto } from "@expo/vector-icons";
+import DateHead from "./components/Datehead";
 
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
@@ -24,10 +25,12 @@ const icons = {
   Thunderstorm: "lightning"
 };
 
+
 export default function App() {
   const [city, setCity] = useState("Loading...")
   const [days, setDays] = useState([]);
   const [ok, setOk] = useState(true);
+  const today = new Date();
   const getWeather = async () => {
     const { granted } = await Location.requestForegroundPermissionsAsync();
     if (!granted) {
@@ -56,7 +59,9 @@ export default function App() {
       <StatusBar style="light" />
       <View style={styles.city}>
         <Text style={styles.cityName}>{city}</Text>
-        
+      </View>
+      <View>
+        <DateHead date={today} />
       </View>
       <ScrollView
         pagingEnabled
@@ -80,7 +85,7 @@ export default function App() {
                   flexDirection: "row",
                   alignItems: "center",
                   width: "100%",
-                  justifyContent: "space-between",
+                  justifyContent: "space-between"
                 }}
               >
                 <Text style={styles.temp}>
